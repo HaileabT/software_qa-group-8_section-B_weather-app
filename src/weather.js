@@ -9,7 +9,9 @@ export async function fetchWeather(city) {
 }
 
 export function formatWeatherData(data) {
-  return `Temperature: ${data.temp}°C, Condition: ${data.condition}`;
+  return `Temperature: ${data.temp}°C, Condition: ${data.condition.slice(0, 1).toUpperCase()}${data.condition.slice(
+    1
+  )}`;
 }
 
 export async function uploadReport(data) {

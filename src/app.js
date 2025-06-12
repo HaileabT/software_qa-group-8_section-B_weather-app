@@ -19,7 +19,7 @@ export function initApp() {
     try {
       const data = await fetchWeather(city);
       errorMessage.textContent = "";
-      weatherInfo.textContent = formatWeatherData(data);
+      weatherInfo.textContent = formatWeatherData({ temp: data.main.temp, condition: data.weather[0].description });
       // weatherInfo.innerHTML = `
       //   <p>Location: ${data.name}, ${data.sys.country}</p>
       //   <p>Temperature: ${data.main.temp}°C</p>
