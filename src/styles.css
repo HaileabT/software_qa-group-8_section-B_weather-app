@@ -1,0 +1,87 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #2c3e50, #4ca1af); /* dark bluish gradient */
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff; /* default text color to white */
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.1); /* light transparent for glass effect */
+  backdrop-filter: blur(15px); /* glass blur */
+  -webkit-backdrop-filter: blur(15px); /* Safari support */
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* thin border for glass effect */
+}
+
+h1 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  flex: 1;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  outline: none;
+}
+
+input::placeholder {
+  color: #ddd;
+}
+
+button {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+}
+
+.weather-output {
+  margin-top: 20px;
+}
+
+#weatherIcon {
+  width: 100px;
+  height: 100px;
+  margin: 10px auto;
+}
+
+#weatherInfo {
+  font-size: 18px;
+  color: #eee;
+}
+
+#errorMessage {
+  color: #660303;
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
