@@ -1,10 +1,4 @@
-import {
-  fetchWeather,
-  formatWeatherData,
-  uploadReport,
-  getWeatherSummary,
-  downloadReport,
-} from "./weather.js";
+import { fetchWeather, formatWeatherData, uploadReport, getWeatherSummary, downloadReport } from "./weather.js";
 import { fireEvent, getByText, waitFor } from "@testing-library/dom";
 import "@testing-library/jest-dom";
 import { initApp } from "./app.js";
@@ -40,7 +34,7 @@ describe("Weather App", () => {
     // Mock fetch
     global.fetch = jest.fn(() =>
       Promise.resolve({
-        json: () => Promise.resolve({ temp: 25, condition: "Sunny" }),
+        json: () => Promise.resolve({ main: { temp: 25 }, weather: [{ description: "Sunny" }] }),
       })
     );
 
@@ -60,14 +54,10 @@ describe("Weather App", () => {
     weatherInfo.textContent = formatWeather.formatWeatherData(data);
 
     await waitFor(() => {
-      expect(weatherInfo).toHaveTextContent(
-        "Temperature: 25°C, Condition: Sunny"
-      );
+      expect(weatherInfo).toHaveTextContent("Temperature: 25°C, Condition: Sunny");
     });
 
-    expect(fetch).toHaveBeenCalledWith(
-      "https://api.example.com/weather?city=London"
-    );
+    expect(fetch).toHaveBeenCalledWith("https://api.example.com/weather?city=London");
     expect(formatSpy).toHaveBeenCalledWith({ temp: 25, condition: "Sunny" });
   });
 
@@ -138,15 +128,11 @@ describe("Weather App", () => {
 
 describe("getWeatherSummary", () => {
   it("returns correct summary for London, 25°C, Sunny", () => {
-    expect(getWeatherSummary("London", 25, "Sunny")).toBe(
-      "London: 25°C, Sunny"
-    );
+    expect(getWeatherSummary("London", 25, "Sunny")).toBe("London: 25°C, Sunny");
   });
 
   it("returns correct summary for New York, 10°C, Cloudy", () => {
-    expect(getWeatherSummary("New York", 10, "Cloudy")).toBe(
-      "New York: 10°C, Cloudy"
-    );
+    expect(getWeatherSummary("New York", 10, "Cloudy")).toBe("New York: 10°C, Cloudy");
   });
 
   it("returns correct summary for Tokyo, -5°C, Snowy", () => {
@@ -157,13 +143,9 @@ describe("getWeatherSummary", () => {
 describe("downloadReport", () => {
   it("returns a Blob from the fetch response", async () => {
     const mockBlob = new Blob(["test content"], { type: "text/plain" });
-    global.fetch = jest.fn(() =>
-      Promise.resolve({ blob: () => Promise.resolve(mockBlob) })
-    );
+    global.fetch = jest.fn(() => Promise.resolve({ blob: () => Promise.resolve(mockBlob) }));
     const result = await downloadReport("London");
     expect(result).toBe(mockBlob);
-    expect(global.fetch).toHaveBeenCalledWith(
-      "https://api.example.com/report?city=London"
-    );
+    expect(global.fetch).toHaveBeenCalledWith("https://api.example.com/report?city=London");
   });
 });
