@@ -1,4 +1,4 @@
-import { fetchWeather } from "./weather.js";
+import { fetchWeather, formatWeatherData } from "./weather.js";
 
 export function initApp() {
   const cityInput = document.getElementById("cityInput");
@@ -19,15 +19,16 @@ export function initApp() {
     try {
       const data = await fetchWeather(city);
       errorMessage.textContent = "";
-      weatherInfo.innerHTML = `
-        <p>Location: ${data.name}, ${data.sys.country}</p>
-        <p>Temperature: ${data.main.temp}°C</p>
-        <p>Weather: ${
-          data.weather[0].description.charAt(0).toUpperCase() +
-          data.weather[0].description.slice(1)
-        }</p>
-        <p>Humidity: ${data.main.humidity}%</p>
-      `;
+      weatherInfo.textContent = formatWeatherData(data);
+      // weatherInfo.innerHTML = `
+      //   <p>Location: ${data.name}, ${data.sys.country}</p>
+      //   <p>Temperature: ${data.main.temp}°C</p>
+      //   <p>Weather: ${
+      //     data.weather[0].description.charAt(0).toUpperCase() +
+      //     data.weather[0].description.slice(1)
+      //   }</p>
+      //   <p>Humidity: ${data.main.humidity}%</p>
+      // `;
     } catch (error) {
       errorMessage.textContent = "City not found or API error!";
       weatherInfo.textContent = "";
